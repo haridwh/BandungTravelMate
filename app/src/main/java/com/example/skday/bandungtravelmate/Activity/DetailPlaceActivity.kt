@@ -83,6 +83,10 @@ class DetailPlaceActivity : AppCompatActivity(), OnMapReadyCallback {
                 else -> true
             }
         })
+
+        fab_favorite.setOnClickListener {
+            Toast.makeText(this@DetailPlaceActivity, "Coming Soon", Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun getDetailPlace(placeId: String) {
@@ -93,6 +97,7 @@ class DetailPlaceActivity : AppCompatActivity(), OnMapReadyCallback {
                 if (response != null) {
                     if (response.isSuccessful) {
                         if (response.body()?.status.equals("OK")){
+
                             result = response.body()?.result
                             Log.d("json", Gson().toJson(response.body()))
                             initView(result)
@@ -173,7 +178,7 @@ class DetailPlaceActivity : AppCompatActivity(), OnMapReadyCallback {
         if (item?.itemId == android.R.id.home) {
             finish()
         } else if (item?.title == "Favorite") {
-            Toast.makeText(this@DetailPlaceActivity, "Clicked", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this@DetailPlaceActivity, "Coming Soon", Toast.LENGTH_SHORT).show()
         }
         return super.onOptionsItemSelected(item)
     }
