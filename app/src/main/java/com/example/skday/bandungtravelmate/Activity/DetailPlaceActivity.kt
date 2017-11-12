@@ -21,6 +21,7 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.gson.Gson
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_detail_place.*
 import retrofit2.Call
@@ -91,16 +92,22 @@ class DetailPlaceActivity : AppCompatActivity(), OnMapReadyCallback {
             override fun onResponse(call: Call<DetailPlace>?, response: Response<DetailPlace>?) {
                 if (response != null) {
                     if (response.isSuccessful) {
-                        result = response.body()?.result
-                        initView(result)
-                        mapFragment?.getMapAsync(this@DetailPlaceActivity)
+                        if (response.body()?.status.equals("OK")){
+                            result = response.body()?.result
+                            Log.d("json", Gson().toJson(response.body()))
+                            initView(result)
+                            mapFragment?.getMapAsync(this@DetailPlaceActivity)
+                        }else{
+                            Toast.makeText(this@DetailPlaceActivity, "Something went wrong, Try again later ...", Toast.LENGTH_LONG).show()
+                        }
                     }
                 }
             }
 
             override fun onFailure(call: Call<DetailPlace>?, t: Throwable?) {
                 Log.d("Failure", t?.message)
-                Toast.makeText(this@DetailPlaceActivity, "Terjadi Kesalah", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@DetailPlaceActivity, "Something went wrong, Try again later ...", Toast.LENGTH_LONG).show()
+
             }
         })
     }

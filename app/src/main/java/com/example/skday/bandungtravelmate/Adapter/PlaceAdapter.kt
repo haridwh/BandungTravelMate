@@ -36,7 +36,7 @@ class PlaceAdapter(var context: Context, var listPlace: List<ListPlace.ResultsBe
         holder?.tvRating?.text = place.rating.toString()
         Picasso.with(context)
                 .load(EndPoints.IMAGE_URL + place.photos[0].photo_reference + "&key=${EndPoints.API_KEY}")
-                .placeholder(R.drawable.placeholder)
+                .placeholder(R.drawable.ic_landscape)
                 .fit()
                 .into(holder?.ivPlace)
         holder?.itemPlace?.setOnClickListener {

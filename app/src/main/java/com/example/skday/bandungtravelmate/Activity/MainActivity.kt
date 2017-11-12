@@ -14,9 +14,7 @@ import com.example.skday.bandungtravelmate.POJO.ListPlace
 import com.example.skday.bandungtravelmate.R
 import com.example.skday.bandungtravelmate.Service.MapClient
 import com.example.skday.bandungtravelmate.Service.ServiceGenerator
-import com.example.skday.bandungtravelmate.Utils.EndPoints
 import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
 import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -42,21 +40,22 @@ class MainActivity : AppCompatActivity() {
             override fun onResponse(call: Call<ListPlace>?, response: Response<ListPlace>?) {
                 if (response != null) {
                     if (response.isSuccessful) {
-                        var data = response.body()?.results
-                        val adapter = PlaceAdapter(this@MainActivity, data!!)
-                        rvPlace.adapter = adapter
-                        rvPlace.layoutManager = LinearLayoutManager(this@MainActivity)
+                        if (response.body()?.status.equals("OK")){
+                            var data = response.body()?.results
+                            Log.d("json", Gson().toJson(response.body()))
+                            val adapter = PlaceAdapter(this@MainActivity, data!!)
+                            rvPlace.adapter = adapter
+                            rvPlace.layoutManager = LinearLayoutManager(this@MainActivity)
+                        }else{
+                            Toast.makeText(this@MainActivity, "Something went wrong, Try again later ...", Toast.LENGTH_LONG).show()
+                        }
                     }
                 }
             }
 
             override fun onFailure(call: Call<ListPlace>?, t: Throwable?) {
-                var data: List<ListPlace.ResultsBean> = Gson().fromJson(EndPoints.DUMMY_RESPONSE, object : TypeToken<List<ListPlace.ResultsBean>>() {}.type)
-                val adapter = PlaceAdapter(this@MainActivity, data!!)
-                rvPlace.adapter = adapter
-                rvPlace.layoutManager = LinearLayoutManager(this@MainActivity)
                 Log.d("Failure", t?.message)
-                Toast.makeText(this@MainActivity, "Terjadi Kesalah", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@MainActivity, "Something went wrong, Try again later ...", Toast.LENGTH_LONG).show()
             }
         })
     }

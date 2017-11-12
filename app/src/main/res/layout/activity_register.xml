@@ -30,6 +30,20 @@
             android:layout_height="wrap_content">
 
             <EditText
+                android:id="@+id/etName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:hint="Enter your name"
+                android:inputType="textPersonName" />
+        </android.support.design.widget.TextInputLayout>
+
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
                 android:id="@+id/etEmail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -72,13 +86,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:hint="REGISTER USER" />
+            android:hint="REGISTER USER"
+            android:background="@color/colorPrimary"
+            android:textColorHint="@android:color/white"/>
 
         <TextView
             android:id="@+id/tvLogin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Already Registered? Sign in here"
+            android:text="Already Registered? Signin here"
             android:textAlignment="center" />
     </LinearLayout>
 
